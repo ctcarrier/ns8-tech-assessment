@@ -11,7 +11,8 @@ export class EventService {
 
   getEvents(onlyRecent: boolean): Array<Event> {
     if (onlyRecent) {
-      const dayAgoInMillis = Date.now() - 24 * 60 * 60 * 1000;
+      const dayInMillis = 24 * 60 * 60 * 1000;
+      const dayAgoInMillis = Date.now() - dayInMillis;
       return this.getEventsByMinTime(dayAgoInMillis);
     }
     return this.store;
