@@ -9,7 +9,11 @@ export class EventService {
     return this.store.find(i => i.id === id);
   }
 
-  getEvents(): Array<Event> {
+  getEvents(onlyRecent: boolean): Array<Event> {
+    if (onlyRecent) {
+      const dayAgoInMillis = Date.now() - 24 * 60 * 60 * 1000;
+      return this.getEventsByMinTime(dayAgoInMillis);
+    }
     return this.store;
   }
 
@@ -23,7 +27,11 @@ export class EventService {
 
   saveEvent(userId: number, event: Event): number {
     const saveSeq: number = this.seq;
-    const toSave = Object.assign({}, event, { id: saveSeq, userId, created: Date.now() });
+    const toSave = Object.assign({}, event, {
+      id: saveSeq,
+      userId,
+      created: Date.now(),
+    });
     this.store.push(toSave);
     this.seq += 1;
     return saveSeq;

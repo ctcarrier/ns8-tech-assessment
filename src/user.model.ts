@@ -1,4 +1,3 @@
-import { Exclude } from 'class-transformer';
 import { IsEmail, IsNotEmpty, IsOptional, Matches } from 'class-validator';
 
 export class User {

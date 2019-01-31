@@ -1,10 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { EventController } from './event.controller';
-import { UserController } from './user.controller';
 import { EventService } from './event.service';
-import { UserService } from './user.service';
 
 describe('EventController', () => {
   let app: TestingModule;
@@ -19,15 +15,19 @@ describe('EventController', () => {
   describe('event controller', () => {
     it('should save an event and return 0', () => {
       const eventController = app.get<EventController>(EventController);
-      expect(eventController.saveEvent(0, {
-        type: 'eventTest'
-      })).toBe(0);
+      expect(
+        eventController.saveEvent(0, {
+          type: 'eventTest',
+        }),
+      ).toBe(0);
     });
     it('should save a second event and return 1', () => {
       const eventController = app.get<EventController>(EventController);
-      expect(eventController.saveEvent(0, {
-        type: 'eventTest2'
-      })).toBe(1);
+      expect(
+        eventController.saveEvent(0, {
+          type: 'eventTest2',
+        }),
+      ).toBe(1);
     });
     it('should return an event for GET', () => {
       const eventController = app.get<EventController>(EventController);

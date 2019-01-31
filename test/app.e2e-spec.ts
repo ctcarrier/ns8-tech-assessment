@@ -16,13 +16,6 @@ describe('AppController (e2e)', () => {
     await app.init();
   });
 
-  it('/ (GET)', () => {
-    return request(app.getHttpServer())
-      .get('/')
-      .expect(200)
-      .expect('Hello World!');
-  });
-
   it('/users (POST)', () => {
     const user = {
       email: 'test@example.com',
@@ -49,6 +42,17 @@ describe('AppController (e2e)', () => {
   it('/users (POST) fails with invalid email', () => {
     const user = {
       email: 'test',
+      phoneNumber: '555-555-5555',
+      password: 'wakka'
+    };
+    return request(app.getHttpServer())
+      .post('/users')
+      .send(user)
+      .expect(400);
+  });
+
+  it('/users (POST) fails with missing email', () => {
+    const user = {
       phoneNumber: '555-555-5555',
       password: 'wakka'
     };
@@ -93,24 +97,6 @@ describe('AppController (e2e)', () => {
       .expect(400);
   });
 
-  it('/users/0 (GET)', () => {
-    const user = {
-      id: 0,
-      email: 'test@example.com',
-      phoneNumber: '555-555-5555',
-      password: 'wakka'
-    };
-    return request(app.getHttpServer())
-      .get('/users/0')
-      .expect(200, user);
-  });
-
-  it('/users/9999 (GET) - 404', () => {
-    return request(app.getHttpServer())
-      .get('/users/9999')
-      .expect(404);
-  });
-
   it('/users/0/events (POST)', () => {
     const event = {
       type: 'testType'
@@ -141,20 +127,13 @@ describe('AppController (e2e)', () => {
       .expect(400);
   });
 
-  it('/users/0/events (GET)', () => {
+  it('/users/0/events (POST) fails with an missing type', () => {
+    const event = {
+    };
     return request(app.getHttpServer())
-      .get('/users/0/events')
-      .expect(200)
-      .then(response => {
-          expect(response.body.length).toBe(1)
-          expect(response.body[0].type).toBe('testType')
-      });
-  });
-
-  it('/users/9999/events (GET)', () => {
-    return request(app.getHttpServer())
-      .get('/users/9999/events')
-      .expect(200, []);
+      .post('/users/0/events')
+      .send(event)
+      .expect(400);
   });
 
   it('/events (GET)', () => {

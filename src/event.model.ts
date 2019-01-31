@@ -1,11 +1,11 @@
-import { IsNotEmpty } from "class-validator";
+import { IsNotEmpty } from 'class-validator';
 
 export class Event {
   id?: number;
   userId?: number;
 
   @IsNotEmpty()
-  type: string;  
+  type: string;
   created?: number;
 
   constructor(partial: Partial<Event>) {

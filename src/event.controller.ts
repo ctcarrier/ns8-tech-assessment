@@ -1,4 +1,13 @@
-import { Get, Post, Controller, Param, ParseIntPipe, Body, UseInterceptors, Query } from '@nestjs/common';
+import {
+  Get,
+  Post,
+  Controller,
+  Param,
+  ParseIntPipe,
+  Body,
+  UseInterceptors,
+  Query,
+} from '@nestjs/common';
 import { EventService } from './event.service';
 import { Event } from './event.model';
 import { NotFoundInterceptor } from './app.interceptor';
@@ -14,21 +23,23 @@ export class EventController {
   }
 
   @Get('/events')
-  getEvents(@Query('onlyRecent') onlyRecent: boolean): Array<Event> {
-    if (onlyRecent) {
-      const dayAgoInMillis = Date.now() - (24 * 60 * 60 * 1000);
-      return this.eventService.getEventsByMinTime(dayAgoInMillis);
-    }
-    return this.eventService.getEvents();
+  getEvents(@Query('onlyRecent') onlyRecent: string): Array<Event> {
+    const isOnlyRecent: boolean = onlyRecent === 'true';
+    return this.eventService.getEvents(isOnlyRecent);
   }
 
   @Get('/users/:userId/events')
-  getEventsByUserId(@Param('userId', new ParseIntPipe()) userId: number): Array<Event> {
+  getEventsByUserId(
+    @Param('userId', new ParseIntPipe()) userId: number,
+  ): Array<Event> {
     return this.eventService.getEventsByUserId(userId);
   }
 
   @Post('/users/:userId/events')
-  saveEvent(@Param('userId', new ParseIntPipe()) userId: number, @Body() event: Event): number {
+  saveEvent(
+    @Param('userId', new ParseIntPipe()) userId: number,
+    @Body() event: Event,
+  ): number {
     return this.eventService.saveEvent(userId, event);
   }
 }
