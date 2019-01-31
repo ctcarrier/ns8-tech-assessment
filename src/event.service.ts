@@ -3,13 +3,13 @@ import { Event } from './event.model';
 
 @Injectable()
 export class EventService {
-  store: Array<Event> = [];
+  store: Event[] = [];
   seq: number = 0;
   getEvent(id: number): Event {
     return this.store.find(i => i.id === id);
   }
 
-  getEvents(onlyRecent: boolean): Array<Event> {
+  getEvents(onlyRecent: boolean): Event[] {
     if (onlyRecent) {
       const dayInMillis = 24 * 60 * 60 * 1000;
       const dayAgoInMillis = Date.now() - dayInMillis;
@@ -18,11 +18,11 @@ export class EventService {
     return this.store;
   }
 
-  getEventsByUserId(userId: number): Array<Event> {
+  getEventsByUserId(userId: number): Event[] {
     return this.store.filter(i => i.userId === userId);
   }
 
-  getEventsByMinTime(minTime: number): Array<Event> {
+  getEventsByMinTime(minTime: number): Event[] {
     return this.store.filter(i => i.created >= minTime);
   }
 

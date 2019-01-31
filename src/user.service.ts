@@ -3,7 +3,7 @@ import { User } from './user.model';
 
 @Injectable()
 export class UserService {
-  store: Array<User> = [];
+  store: User[] = [];
   seq: number = 0;
   getUser(id: number): User {
     return this.store.find(i => i.id === id);

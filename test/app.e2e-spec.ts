@@ -20,7 +20,7 @@ describe('AppController (e2e)', () => {
     const user = {
       email: 'test@example.com',
       phoneNumber: '555-555-5555',
-      password: 'wakka'
+      password: 'wakka',
     };
     return request(app.getHttpServer())
       .post('/users')
@@ -31,7 +31,7 @@ describe('AppController (e2e)', () => {
   it('/users (POST) works without phoneNumber', () => {
     const user = {
       email: 'test2@example.com',
-      password: 'wakka'
+      password: 'wakka',
     };
     return request(app.getHttpServer())
       .post('/users')
@@ -43,7 +43,7 @@ describe('AppController (e2e)', () => {
     const user = {
       email: 'test',
       phoneNumber: '555-555-5555',
-      password: 'wakka'
+      password: 'wakka',
     };
     return request(app.getHttpServer())
       .post('/users')
@@ -54,7 +54,7 @@ describe('AppController (e2e)', () => {
   it('/users (POST) fails with missing email', () => {
     const user = {
       phoneNumber: '555-555-5555',
-      password: 'wakka'
+      password: 'wakka',
     };
     return request(app.getHttpServer())
       .post('/users')
@@ -66,7 +66,7 @@ describe('AppController (e2e)', () => {
     const user = {
       email: 'test@example.com',
       phoneNumber: '555-555-5555',
-      password: 'wakka'
+      password: 'wakka',
     };
     return request(app.getHttpServer())
       .post('/users')
@@ -78,7 +78,7 @@ describe('AppController (e2e)', () => {
     const user = {
       email: 'test',
       phoneNumber: '555',
-      password: 'wakka'
+      password: 'wakka',
     };
     return request(app.getHttpServer())
       .post('/users')
@@ -89,7 +89,7 @@ describe('AppController (e2e)', () => {
   it('/users (POST) fails when missing password', () => {
     const user = {
       email: 'test',
-      phoneNumber: '555'
+      phoneNumber: '555',
     };
     return request(app.getHttpServer())
       .post('/users')
@@ -99,7 +99,7 @@ describe('AppController (e2e)', () => {
 
   it('/users/0/events (POST)', () => {
     const event = {
-      type: 'testType'
+      type: 'testType',
     };
     return request(app.getHttpServer())
       .post('/users/0/events')
@@ -109,7 +109,7 @@ describe('AppController (e2e)', () => {
 
   it('/users/1/events (POST)', () => {
     const event = {
-      type: 'testType2'
+      type: 'testType2',
     };
     return request(app.getHttpServer())
       .post('/users/1/events')
@@ -119,7 +119,7 @@ describe('AppController (e2e)', () => {
 
   it('/users/0/events (POST) fails with an empty type', () => {
     const event = {
-      type: ''
+      type: '',
     };
     return request(app.getHttpServer())
       .post('/users/0/events')
@@ -141,9 +141,9 @@ describe('AppController (e2e)', () => {
       .get('/events')
       .expect(200)
       .then(response => {
-          expect(response.body.length).toBe(2)
-          expect(response.body[0].type).toBe('testType')
-          expect(response.body[1].type).toBe('testType2')
+          expect(response.body.length).toBe(2);
+          expect(response.body[0].type).toBe('testType');
+          expect(response.body[1].type).toBe('testType2');
       });
   });
 });

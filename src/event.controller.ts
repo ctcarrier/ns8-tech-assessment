@@ -23,7 +23,7 @@ export class EventController {
   }
 
   @Get('/events')
-  getEvents(@Query('onlyRecent') onlyRecent: string): Array<Event> {
+  getEvents(@Query('onlyRecent') onlyRecent: string): Event[] {
     const isOnlyRecent: boolean = onlyRecent === 'true';
     return this.eventService.getEvents(isOnlyRecent);
   }
@@ -31,7 +31,7 @@ export class EventController {
   @Get('/users/:userId/events')
   getEventsByUserId(
     @Param('userId', new ParseIntPipe()) userId: number,
-  ): Array<Event> {
+  ): Event[] {
     return this.eventService.getEventsByUserId(userId);
   }
 
